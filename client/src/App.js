@@ -1,19 +1,23 @@
 import './App.css';
-import './index.css'
-import logo from "../src/logo.png"
+import './style.css'
+import Auth from './components/Auth'
+import Register from './components/Register'
+import Blog from './components/Blog'
+import Footer from './components/Footer'
+import Main from './components/Main'
+import { BrowserRouter, Routes, Route, } from "react-router-dom";
 function App() {
   return (
-    <div className="App">
-      <header className="rounded border-grey-200 px-2 sm:px-4 py-2.5">
-        <nav className='container flex flex-wrap justify-between items-center mx-auto '>
-          <img src={logo} className="logo h-20"></img>
-          <ul className="flex flex-row p-4 bg-gray-50 rounded-lg">
-            <li><a href='#' className="block py-2 pr-4 lo-3 text-gray-700 rounded hover:bg-gray-100">Главная</a></li>
-            <li><a href='#' className="block py-2 pr-4 lo-3 text-gray-700 rounded hover:bg-gray-100">Вход</a></li>
-            <li><a href='#' className="block py-2 pr-4 lo-3 text-gray-700 rounded hover:bg-gray-100">Регистрация</a></li>
-          </ul>
-        </nav>
-      </header>
+    <div className="App flex flex-col text-black justify-between items-center">
+      <BrowserRouter>
+        <Blog />
+        <Routes>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="Auth" element={<Auth />}></Route>
+          <Route path="Register" element={<Register />}></Route>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }

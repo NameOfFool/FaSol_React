@@ -1,16 +1,12 @@
 {
-  "name": "fasol",
+  "name": "test",
   "version": "1.0.0",
-  "description": "",
+  "description": "none",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "FaSol_React"
-  },
-  "author": "NameOfFool",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
