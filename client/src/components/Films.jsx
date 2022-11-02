@@ -1,4 +1,4 @@
-const Mass = [
+const Films = [
     {
         id: 1,
         name: "name 1",
