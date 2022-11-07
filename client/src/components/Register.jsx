@@ -7,7 +7,7 @@ const Register = () => {
     const redirect = useNavigate();
     const [register, setRegister] = useState(() => {
         return {
-            login: "login",
+            login: "",
             email: "",
             password1: "",
             password2: ""
@@ -27,25 +27,21 @@ const Register = () => {
             case 'email':
                 if (register.email.length > 0 && !validator.isEmail(register.email))
                     text = "Введите корректную почту"
-                        
+
                 break;
             case 'password2':
                 if (register.password1.length > 0 && register.password2.length > 0 && register.password1 !== register.password2)
                     text = "Введённые пароли не совпадают"
                 break;
         }
-        console.log(text)
         return (
             <span className="text-[#FF0000]">{text}</span>
         )
     }
     const submitClick = event => {
         event.preventDefault();//Отменяет стандартное поведение
-        console.log(register)
-        axios.post("http://localhost:3001", register).then(res => {
-            console.log(res.data)
+        axios.post("http://localhost:5000", register).then(res => {
             redirect("/")
-
         }).catch(err => {
             console.log(err)
         });
