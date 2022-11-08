@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import Main from './components/Main'
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
 function App() {
+  console.log("!!!")
   return (
     <div className="App flex flex-col text-black justify-between items-center">
       <BrowserRouter>

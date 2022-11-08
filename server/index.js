@@ -5,7 +5,7 @@ const cors = require("cors")
 const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 5000;
 const router = require('./router/index')
-
+const mongoose = require("mongoose")
 app.use(cors())
 app.use(express.urlencoded({ exteneded: false }))
 app.use(express.json())
@@ -14,6 +14,7 @@ app.use('/api', router)
 
 const start = async () => {
     try {
+        await mongoose.connect(process.env.DB_URL)
         app.listen(PORT, () => console.log(`Порт ${PORT}`))
     }
     catch (e) {
