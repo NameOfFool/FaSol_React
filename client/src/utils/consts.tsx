@@ -1,0 +1,7 @@
+export const ADMIN_ROUTE:string = '/admin'
+export const LOGIN_ROUTE:string = '/login'
+export const REGISTRATION_ROUTE:string = '/registration'
+export const PLAY_ROUTE:string = '/play'
+export const MAIN_ROUTE:string = '/'
+export const PLAYLIST_ROUTE:string = '/playlist'
+export const USER_ROUTE:string = '/user'

@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createContext } from 'react';
 import App from './App';
-import Store from './store/store';
+import UserStore from './store/UserStore';
 interface IStore {
-  store: Store,
+  store: UserStore,
 }
-const store = new Store();
+const store = new UserStore();
 
 export const Context = createContext<IStore>({
   store,
