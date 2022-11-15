@@ -1,9 +1,10 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
+import LoginForm from '../components/LoginForm';
 
-const Auth :FC = () => {
+const Auth: FC = () => {
     return (
         <div>
-        Auth
+            <LoginForm />
         </div>
     );
 };

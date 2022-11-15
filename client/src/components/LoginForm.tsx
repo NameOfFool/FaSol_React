@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
+import { Form, Button, FormControl, FormGroup, Container } from 'react-bootstrap'
 import { Context } from '../index'
 
 const LoginForm: FC = () => {
@@ -6,12 +7,24 @@ const LoginForm: FC = () => {
     const [password, setPassword] = useState<string>('')
     const { store } = useContext(Context)
     return (
-        <div>
-            <input type="text" placeholder="Email" onChange={e => setEmail(e.target.value)} value={email} />
-            <input type="password" placeholder="Password" onChange={e => { setPassword(e.target.value); }} value={password} />
-            <button onClick={() => store.login(email, password)}>Логин</button>
-            <button onClick={() => store.registration(email, password)}>Регистрация</button>
-        </div>
+        <Container className='h-100 d-flex justify-content-center align-items-center'>
+
+            <Form className="w-50">
+                <h1>Вход</h1>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter email" />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Пароль</Form.Label>
+                    <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Войти
+                </Button>
+            </Form>
+        </Container>
     )
 }
 

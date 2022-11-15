@@ -1,20 +1,20 @@
-import React, {ReactNode, useContext} from 'react';
-import {Routes, Route, Navigate} from "react-router-dom";
-import {FC} from "react";
-import {authRoutes, publicRoutes} from "../routes";
+import React, { ReactNode, useContext } from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";
+import { FC } from "react";
+import { authRoutes, publicRoutes } from "../routes";
 import Main from "../pages/Main";
 import UserStore from "../store/UserStore";
-import {Context} from "../index";
+import { Context } from "../index";
 
 const AppRouter: FC = () => {
-    const {store} = useContext(Context)
+    const { store } = useContext(Context)
     return (
 
         <Routes>
             {
                 store.isAuth && authRoutes.map((item) =>
 
-                    <Route key={item.path} path={item.path} element={item.Component}/>
+                    <Route key={item.path} path={item.path} element={item.Component} />
 
                 )
 
@@ -22,13 +22,13 @@ const AppRouter: FC = () => {
             {
                 publicRoutes.map((item) =>
 
-                    <Route key={item.path} path={item.path} element={item.Component}/>
+                    <Route key={item.path} path={item.path} element={item.Component} />
 
                 )
             }
             <Route
                 path="*"
-                element={<Navigate to={"/"} replace/>}
+                element={<Navigate to={"/"} replace />}
 
             />
         </Routes>

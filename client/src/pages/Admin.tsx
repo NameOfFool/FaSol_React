@@ -1,9 +1,10 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
+import LoginForm from '../components/LoginForm';
 
-const Admin :FC = () => {
+const Admin: FC = () => {
     return (
         <div>
-           Admin page
+            <LoginForm />
         </div>
     );
 };
