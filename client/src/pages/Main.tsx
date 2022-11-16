@@ -8,8 +8,8 @@ const Main :FC = () => {
                 <Col md={3}>
 
                 </Col>
-                <Col md={3}>
-
+                <Col md={9}>
+                
                 </Col>
             </Row>
         </Container>

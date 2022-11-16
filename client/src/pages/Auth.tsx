@@ -3,9 +3,7 @@ import LoginForm from '../components/LoginForm';
 
 const Auth: FC = () => {
     return (
-        <div>
-            <LoginForm />
-        </div>
+        <LoginForm />
     );
 };
 
