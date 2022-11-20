@@ -1,6 +1,6 @@
 const sequelize = require("../db")
 const { DataTypes } = require("sequelize")
-const UserModel = sequelize.define("user", {
+const UserModel = sequelize.define("users", {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -11,7 +11,7 @@ const UserModel = sequelize.define("user", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    name: {
+    login: {
         type: DataTypes.STRING,
         allowNull: false
     }
@@ -30,3 +30,16 @@ const UserModel = sequelize.define("user", {
         allowNull: false
     }
 })
+const TokenModel = sequelize.define("tokens", {
+    refreshToken: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    id_user: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
+UserModel.hasOne(TokenModel);
+TokenModel.belongsTo(UserModel);
+module.exports = {UserModel,TokenModel}

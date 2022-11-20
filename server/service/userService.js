@@ -1,4 +1,4 @@
-const UserModel = require("../models/user")
+const {UserModel} = require("../models/models")
 const bcrypt = require("bcrypt");
 const uuid = require("uuid")
 const mailService = require("../service/mailService")
@@ -7,18 +7,31 @@ const UserDto = require("../dtos/userDto")
 const ApiError = require('../exceptions/api_errors');
 const tokenService = require("../service/tokenService");
 class UserService {
-    async registraion(email, password, login) {
-        const candidate = await UserModel.findOne({ email })
-        if (candidate) {
+    async registration(email, password, login) {
+        console.log(UserModel)
+        const candidate = await UserModel.findAll({where:{"email":email}}).then((res)=>{
+
+            return res;
+        }).catch(err=>{
+            console.log(err)
+        })
+        if (candidate.length>0) {
             throw ApiError.BadRequest("Пользователь с такой почтой уже зарегистрирован")
         }
         const hashPassword = await bcrypt.hash(password, 3);
         const link = uuid.v4()
-        const user = await UserModel.create({
+
+        const user = UserModel.create({
             email: email,
             password: hashPassword,
             login: login,
-            activationLink: link
+            activationLink: link,
+            isActivated:0
+        }).then((res)=>{
+
+            return res;
+        }).catch(err=>{
+            console.log(err)
         })
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${link}`);
         const userDto = new UserDto(user);
@@ -30,14 +43,13 @@ class UserService {
         }
     }
     async activate(link) {
-        const user = await UserModel.findOne({ link })
+        const user = await UserModel.findAll({where:{ activationLink:link }})
         if (!user)
             throw ApiError.BadRequest('Некорректная ссылка активации')
-        user.isActivated = true
-        await user.save()
+        UserModel.update({isActivated:1},{where:{activationLink:link}})
     }
     async login(email, password) {
-        const user = await UserModel.findOne({ email: email })
+        const user = await UserModel.findOne({where:{ email: email }})
         if (!user)
             throw ApiError.BadRequest("Пользователь с такой почтой не найден")
         const arePassEquals = await bcrypt.compare(password, user.password)
@@ -64,7 +76,7 @@ class UserService {
             if (!userData || !tokenFromDB) {
                 return ApiError.UnauthorizedError()
             }
-            const user = await UserModel.findById(userData.id)
+            const user = await UserModel.findByPk(userData.id)
             const tokens = TokenService.generateTokens({ ...UserDto })
             await TokenService.saveToken(userDto.id, tokens.refreshToken)
             return {
