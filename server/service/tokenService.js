@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const {TokenModel} = require('../models/models')
+const { TokenModel } = require('../models/models')
 
 class TokenService {
     generateTokens(payload) {
@@ -7,31 +7,46 @@ class TokenService {
             expiresIn: '24h'
         })
         const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_KEY, {
-            expiresIn: '24d'
+            expiresIn: "20d"
         })
+        console.log(payload)
         return {
             accessToken,
             refreshToken
         }
     }
 
-    async saveToken(userId, refreshToken) {
-        const tokenData = await TokenModel.findAll({where: {user_id: userId}});
+    async saveToken(id_user, refreshToken) {
+        const tokenData = await TokenModel.findAll({ where: { id_user: id_user } })
         if (tokenData) {
             tokenData.refreshToken = refreshToken
         }
-        const token = await TokenModel.create({user: userId, refreshToken})
+        const token = await TokenModel.upsert({ id_user: id_user, refreshToken: refreshToken }).then((res) => {
+
+            return res;
+        }).catch(err => {
+            console.log(err)
+        })
         return token
     }
+    validateAccessToken(token) {
+        try {
+            const userData = jwt.verify(token, process.env.JWT_ACCESS_KEY)
 
+            return userData
+        } catch (e) {
+            return null;
+        }
+    }
     async removeToken(refreshToken) {
-        const tokenData = TokenModel.destroy({where: {refreshToken}})
+        const tokenData = TokenModel.destroy({ where: { refreshToken } })
         return tokenData;
     }
 
     validateAccessToken(token) {
         try {
             const userData = jwt.verify(token, process.env.JWT_ACCESS_KEY)
+
             return userData
         } catch (e) {
             return null;
@@ -41,14 +56,18 @@ class TokenService {
     validateRefreshToken(token) {
         try {
             const userData = jwt.verify(token, process.env.JWT_REFRESH_KEY)
+
             return userData
         } catch (e) {
+            console.log(e)
             return null;
         }
     }
 
     async findToken(refreshToken) {
-        const tokenData = TokenModel.findOne({where: {"refreshToken": refreshToken}})
+        const tokenData = await TokenModel.findOne({ where: { "refreshToken": refreshToken } }).catch(err => {
+            console.log(err)
+        })
         return tokenData;
     }
 }

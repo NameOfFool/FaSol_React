@@ -8,7 +8,6 @@ const LoginForm: FC = () => {
     const { store } = useContext(Context)
     return (
         <Container className='h-100 d-flex justify-content-center align-items-center'>
-
             <Form className="w-50">
                 <h1>Вход</h1>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -20,7 +19,7 @@ const LoginForm: FC = () => {
                     <Form.Label>Пароль</Form.Label>
                     <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button onClick={() => { store.login(email, password) }} variant="primary" type="button">
                     Войти
                 </Button>
             </Form>

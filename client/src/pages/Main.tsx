@@ -1,17 +1,10 @@
-import React, {FC} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
-
-const Main :FC = () => {
+import React, { FC } from 'react';
+import { Col, Container, Row } from "react-bootstrap";
+import Music from '../components/Music';
+const Main: FC = () => {
     return (
         <Container>
-            <Row>
-                <Col md={3}>
-
-                </Col>
-                <Col md={9}>
-                
-                </Col>
-            </Row>
+            <Music />
         </Container>
     );
 };

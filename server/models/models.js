@@ -37,9 +37,16 @@ const TokenModel = sequelize.define("tokens", {
     },
     id_user: {
         type: DataTypes.STRING,
+        primaryKey: true,
         allowNull: false
     }
 })
-UserModel.hasOne(TokenModel);
-TokenModel.belongsTo(UserModel);
-module.exports = {UserModel,TokenModel}
+UserModel.hasOne(TokenModel, {
+    foreignKey: "id_user",
+    sourceKey: "id"
+});
+TokenModel.belongsTo(UserModel, {
+    foreignKey: "id_user",
+    targetKey: "id"
+});
+module.exports = { UserModel, TokenModel }
