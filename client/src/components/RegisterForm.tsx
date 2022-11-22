@@ -2,15 +2,14 @@ import React, { FC, useState, useEffect, useContext } from 'react'
 import { Form, Button, FormControl, FormGroup, Container } from 'react-bootstrap'
 import { Context } from '../index'
 
-const LoginForm: FC = () => {
+const RegisterForm: FC = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-
     const { store } = useContext(Context)
     return (
         <Container className='h-75 rounded w-50 d-flex justify-content-center align-items-center text-center text-white my-5' style={{ backgroundColor: "#2c3856" }}>
             <Form className="w-50">
-                <h1>Вход</h1>
+                <h1>Регистрация</h1>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter email" />
@@ -18,7 +17,7 @@ const LoginForm: FC = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Пароль</Form.Label>
-                    <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Пароль" />
+                    <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
                 </Form.Group>
                 <Button onClick={() => { store.login(email, password) }} variant="primary" type="button">
                     Войти
@@ -28,4 +27,4 @@ const LoginForm: FC = () => {
     )
 }
 
-export default LoginForm
+export default RegisterForm

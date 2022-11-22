@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 import useDocumentTitle from "../utils/useDocumentTitle";
-document.title = "Вход";
+
 const Auth: FC = () => {
-    useDocumentTitle("Вход");
+    useDocumentTitle("Регистрация");
     return (
-        <LoginForm />
+        <RegisterForm />
     );
 };
 

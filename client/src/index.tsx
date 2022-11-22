@@ -6,7 +6,7 @@ import UserStore from './store/UserStore';
 interface IStore {
   store: UserStore,
 }
-const store = new UserStore();
+const store:UserStore = new UserStore();
 
 export const Context = createContext<IStore>({
   store,

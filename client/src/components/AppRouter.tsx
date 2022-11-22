@@ -1,9 +1,7 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { FC } from "react";
 import { authRoutes, publicRoutes } from "../routes";
-import Main from "../pages/Main";
-import UserStore from "../store/UserStore";
 import { Context } from "../index";
 
 const AppRouter: FC = () => {
@@ -12,6 +10,7 @@ const AppRouter: FC = () => {
 
         <Routes>
             {
+
                 store.isAuth && authRoutes.map((item) =>
 
                     <Route key={item.path} path={item.path} element={item.Component} />

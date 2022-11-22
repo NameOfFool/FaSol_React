@@ -41,6 +41,24 @@ const TokenModel = sequelize.define("tokens", {
         allowNull: false
     }
 })
+
+const TrackModel = sequelize.define("tracks",{
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    duration: {
+        type: DataTypes.TIME,
+        allowNull: false
+    }
+})
+
 UserModel.hasOne(TokenModel, {
     foreignKey: "id_user",
     sourceKey: "id"

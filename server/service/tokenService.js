@@ -39,6 +39,7 @@ class TokenService {
     }
     async removeToken(refreshToken) {
         const tokenData = TokenModel.destroy({ where: { refreshToken } })
+        console.log(refreshToken);
         return tokenData;
     }
 
