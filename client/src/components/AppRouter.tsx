@@ -2,8 +2,6 @@ import React, { ReactNode, useContext } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { FC } from "react";
 import { authRoutes, publicRoutes } from "../routes";
-import Main from "../pages/Main";
-import UserStore from "../store/UserStore";
 import { Context } from "../index";
 
 const AppRouter: FC = () => {

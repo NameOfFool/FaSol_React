@@ -1,5 +1,4 @@
 import React, { FC, useContext, useEffect } from 'react';
-import LoginForm from './components/LoginForm';
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import { Context } from "./index";

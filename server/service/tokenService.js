@@ -17,7 +17,7 @@ class TokenService {
     }
 
     async saveToken(id_user, refreshToken) {
-        const tokenData = await TokenModel.findAll({ where: { id_user: id_user } })
+        const tokenData = await TokenModel.findOne({ where: { id_user: id_user } })
         if (tokenData) {
             tokenData.refreshToken = refreshToken
         }

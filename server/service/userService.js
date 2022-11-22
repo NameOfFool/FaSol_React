@@ -9,7 +9,7 @@ const tokenService = require("../service/tokenService");
 class UserService {
     async registration(email, password, login) {
         console.log(UserModel)
-        const candidate = await UserModel.findAll({ where: { "email": email } }).then((res) => {
+        const candidate = await UserModel.findOne({ where: { "email": email } }).then((res) => {
 
             return res;
         }).catch(err => {
@@ -41,7 +41,7 @@ class UserService {
         }
     }
     async activate(link) {
-        const user = await UserModel.findAll({ where: { activationLink: link } })
+        const user = await UserModel.findOne({ where: { activationLink: link } })
         if (!user)
             throw ApiError.BadRequest('Некорректная ссылка активации')
         UserModel.update({ isActivated: 1 }, { where: { activationLink: link } })
@@ -78,7 +78,7 @@ class UserService {
         const user = await UserModel.findByPk(userData.id)
         const userDto = new UserDto(user)
 
-        const tokens = TokenService.generateTokens({ ...UserDto })
+        const tokens = TokenService.generateTokens({ ...userDto })
         await TokenService.saveToken(userDto.id, tokens.refreshToken)
 
         return {
