@@ -32,11 +32,11 @@ const UserModel = sequelize.define("users", {
 })
 const TokenModel = sequelize.define("tokens", {
     refreshToken: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     id_user: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false
     }
