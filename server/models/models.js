@@ -42,7 +42,7 @@ const TokenModel = sequelize.define("tokens", {
     }
 })
 
-const TrackModel = sequelize.define("tracks",{
+const TrackModel = sequelize.define("tracks", {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -58,7 +58,45 @@ const TrackModel = sequelize.define("tracks",{
         allowNull: false
     }
 })
+const LikedModel = sequelize.define("likedtracks", {
 
+})
+const ArtistModel = sequelize.define("artists", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
+const GenreModel = sequelize.define("genres", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
+const AlbumModel = sequelize.define("albums", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
 UserModel.hasOne(TokenModel, {
     foreignKey: "id_user",
     sourceKey: "id"
@@ -67,4 +105,25 @@ TokenModel.belongsTo(UserModel, {
     foreignKey: "id_user",
     targetKey: "id"
 });
-module.exports = { UserModel, TokenModel }
+
+
+ArtistModel.hasMany(TrackModel, {
+    foreignKey: "id"
+})
+TrackModel.belongsTo(ArtistModel)
+
+TrackModel.hasMany(LikedModel)
+LikedModel.belongsTo(TrackModel)
+
+UserModel.hasMany(LikedModel)
+LikedModel.belongsTo(UserModel)
+
+
+
+TrackModel.belongsToMany(GenreModel, { through: "genrelist" })
+GenreModel.belongsToMany(TrackModel, { through: "genrelist" })
+
+AlbumModel.belongsToMany(TrackModel, { through: "albumtrack" })
+TrackModel.belongsToMany(AlbumModel, { through: "albumtrack" })
+
+module.exports = { UserModel, TokenModel, AlbumModel, ArtistModel, TrackModel, GenreModel, LikedModel }

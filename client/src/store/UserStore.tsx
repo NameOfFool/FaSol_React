@@ -26,20 +26,22 @@ export default class UserStore {
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true)
             this.setUser(response.data.user)
-            document.location ="/";
+            document.location = "/";
         } catch (e) {
             console.log(e)
         }
     }
 
-    async registration(email: string, password: string) {
+    async registration(email: string, password: string, login: string) {
         console.log(password)
         try {
 
-            const response = await AuthService.registration(email, password);
+            const response = await AuthService.registration(email, password, login);
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true)
             this.setUser(response.data.user)
+            document.location = "/"
+            alert("Зайдите на почту и подтвердите её")
         } catch (e) {
             console.log(e)
         }
@@ -52,7 +54,7 @@ export default class UserStore {
             localStorage.removeItem('token');
             this.setUser({} as IUser);
             this.setAuth(false);
-            document.location ="/";
+            document.location = "/";
         } catch (e) {
             console.log(e)
         }
