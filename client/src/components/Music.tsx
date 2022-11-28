@@ -1,19 +1,29 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState, useEffect } from 'react';
 import { Nav, Container, Navbar } from "react-bootstrap";
 import { NavLink } from 'react-router-dom';
 import { MAIN_ROUTE } from '../utils/consts';
 import { Context } from '..';
 import Track from './track/Track';
 import TrackService from '../services/TrackService';
+import { AxiosResponse } from 'axios';
+import { TrackResponse } from '../models/response/TrackResponse';
+import { ITrack } from '../models/ITrack';
 
 const Music: FC = () => {
-    async function getTracks() {
-        console.log(await TrackService.getAll())
-    }
+    const [tracks, setTracks] = useState<TrackResponse[]>([])
+    useEffect(() => {
+        TrackService.getAll().then((tracks) => {
+            setTracks(tracks.data)
+        })
+    }, [])
+
     return (
         <Container className="mt-5">
-            <span onClick={getTracks}>!!!</span>
-            <Track />
+            {tracks.map((track) =>
+                <Track track={track} key={track.id} />
+            )
+            }
+
         </Container>
 
     );

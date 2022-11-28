@@ -1,4 +1,4 @@
 import { ITrack } from "../ITrack";
-export interface TrackResponse {
-    track: ITrack;
+export interface TrackResponse extends ITrack {
+
 }
