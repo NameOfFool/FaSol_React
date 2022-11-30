@@ -18,7 +18,7 @@ const Track: FC<TrackData> = ({ track }) => {
                     <p className="track-artist">{track.artist.name}</p>
                 </div>
             </div>
-            <p className="duration">{track.duration}</p>
+            <p className="duration">{track.duration.substring(0,5)}</p>
             <PlayButton url={trackdata} />
         </div>
     );
