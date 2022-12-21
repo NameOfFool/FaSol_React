@@ -8,14 +8,13 @@ const ApiError = require('../exceptions/api_errors');
 const tokenService = require("../service/tokenService");
 class UserService {
     async registration(email, password, login) {
-        const candidate = await UserModel.findAll({ where: { "email": email } }).then((res) => {
-
-            return res;
-        }).catch(err => {
-            console.log(err)
-        })
+        let candidate = await UserModel.findAll({ where: { "email": email } })
         if (candidate.length > 0) {
             throw ApiError.BadRequest("Пользователь с такой почтой уже зарегистрирован")
+        }
+        candidate = await UserModel.findAll({ where: { "login": login } })
+        if (candidate.length > 0) {
+            throw ApiError.BadRequest("Пользователь с таким логином уже зарегистрирован")
         }
         const hashPassword = await bcrypt.hash(password, 3);
         const link = uuid.v4()
@@ -43,7 +42,7 @@ class UserService {
             throw ApiError.BadRequest('Некорректная ссылка активации')
         UserModel.update({ isActivated: 1 }, { where: { activationLink: link } })
     }
-    async login(email, password) {
+    async login(email, password, login) {
         const user = await UserModel.findOne({ where: { email: email } })
         if (!user)
             throw ApiError.BadRequest("Пользователь с такой почтой не найден")

@@ -33,15 +33,15 @@ export default class UserStore {
     }
 
     async registration(email: string, password: string, login: string) {
-        console.log(password)
         try {
-
             const response = await AuthService.registration(email, password, login);
+            if (response.status === 400) {
+                return response.data
+            }
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true)
             this.setUser(response.data.user)
-            document.location = "/"
-            alert("Зайдите на почту и подтвердите её")
+            return response.data
         } catch (e) {
             console.log(e)
         }
